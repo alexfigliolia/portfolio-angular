@@ -1,0 +1,43 @@
+@use "Styles/Variables";
+
+:host {
+	@include Variables.center;
+
+	flex-direction: column;
+
+	@media #{Variables.$mq-957} {
+		margin-top: -6%;
+	}
+
+	&>h1 {
+		@include Variables.center;
+
+		font-size: 25vw;
+		@include Variables.textRotation;
+		margin: -0.2em 0;
+
+		@media #{Variables.$mq-670} {
+			font-size: 20vw;
+		}
+
+		@media #{Variables.$mq-890} {
+			font-size: 17.5vw;
+		}
+
+		@media #{Variables.$mq-1150} {
+			font-size: min(16vw, 230px);
+		}
+
+		&:first-of-type {
+			margin-top: 0;
+		}
+
+		&:last-of-type {
+			margin-bottom: 0;
+		}
+
+		&>.letter {
+			@include Variables.splitLetterHiddenState;
+		}
+	}
+}

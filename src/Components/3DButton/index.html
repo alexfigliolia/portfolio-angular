@@ -1,0 +1,5 @@
+<button (click)="onClick()($event)" (mouseenter)="mouseEnter($event)" (mousemove)="mouseMove($event)"
+  (mouseleave)="mouseLeave()" (touchstart)="mouseEnter($event)" (touchmove)="mouseMove($event)"
+  (touchleave)="mouseLeave()" [style]="frame()">
+  <div>{{text()}}</div>
+</button>

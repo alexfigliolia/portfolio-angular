@@ -1,0 +1,71 @@
+@use "Styles/Variables";
+
+button {
+  outline: none;
+  border: none;
+  margin: 0;
+  user-select: none;
+  position: relative;
+  transform: skew(-10deg);
+  font-weight: 900;
+  color: #fff;
+  text-transform: uppercase;
+  background-color: transparent;
+  font-size: 1.75em;
+  letter-spacing: -0.05em;
+
+  @include Variables.center;
+
+  box-shadow: none;
+  transform-style: preserve-3d;
+  text-shadow: 0 0.05em 0.1em rgba(#000, 0.8), 0 0 0.2em rgba(#000, 0.5);
+  transition: transform 0.5s 0s, box-shadow 0.5s 0s, color 0.3s 0.1s, text-shadow 0.3s 0.1s;
+
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0.1em;
+    width: 65%;
+    z-index: 2;
+    background-color: #fff;
+    transition: height 0.4s;
+  }
+
+  &::after {
+    inset: auto 0 0 auto;
+  }
+
+  &>div {
+    user-select: none;
+    pointer-events: none;
+    padding: 1em 3.25em;
+    z-index: 3;
+
+    &::after,
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 10%;
+      height: 50%;
+      width: 0.1em;
+      background-color: #fff;
+    }
+
+    &::after {
+      inset: auto 10% 0 auto;
+    }
+  }
+
+  &:hover {
+    @include Variables.threeDButtonHoverText;
+
+    &::after,
+    &::before {
+      height: 100%;
+    }
+  }
+}

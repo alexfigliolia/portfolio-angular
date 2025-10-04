@@ -1,0 +1,23 @@
+@use "Styles/Variables";
+
+:host {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 2;
+  transform: scale(0);
+  transition: transform 0s;
+
+  &.active {
+    transform: scale(1);
+    transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  @media #{Variables.$mq-670} {
+    transform: scale(0) translateX(-15%) translateY(10%);
+
+    &::ng-deep burger>button {
+      transform: scale(1.2) translateX(-15%) translateY(10%);
+    }
+  }
+}

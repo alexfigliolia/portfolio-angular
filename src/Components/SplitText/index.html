@@ -1,0 +1,13 @@
+@let letters = tokens();
+
+@for(letter of letters; track $index) {
+
+@if(letter === " ") {
+<div class="letter" aria-hidden="true">&nbsp;&nbsp;</div>
+} @else {
+<div class="letter" aria-hidden="true">{{ letter }}</div>
+}
+
+}
+
+<screen-reader-text [text]="text()" />

@@ -1,0 +1,7 @@
+@use "Styles/Variables";
+
+:export {
+  smallScreenScale: Variables.$smallScreenScale;
+  largeScreenScale: Variables.$largeScreenScale;
+  screenInnerTransition: Variables.$screenInnerTransition;
+}

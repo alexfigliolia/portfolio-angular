@@ -1,0 +1,7 @@
+@use "Styles/Variables";
+
+:host {
+  gap: 40px;
+  @include Variables.center;
+  flex-direction: column;
+}

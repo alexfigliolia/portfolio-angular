@@ -1,0 +1,6 @@
+@use "Styles/Variables";
+
+:host {
+	@include Variables.center;
+	position: relative;
+}

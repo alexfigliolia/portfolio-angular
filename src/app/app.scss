@@ -1,0 +1,103 @@
+@use "Styles/Variables";
+
+:host {
+  display: block;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+
+  perspective: 1600px;
+  will-change: transform;
+  transition: scale Variables.$smallScreenScale cubic-bezier(0.65, 0, 0.35, 1),
+    rotate Variables.$smallScreenFlip cubic-bezier(0.65, 0, 0.35, 1), opacity 1s;
+
+  @media #{Variables.$mq-957} {
+    transition: scale Variables.$largeScreenScale cubic-bezier(0.65, 0, 0.35, 1),
+      rotate Variables.$largeScreenFlip cubic-bezier(0.65, 0, 0.35, 1), opacity 1s;
+  }
+
+  &>.inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: rotate Variables.$screenInnerTransition;
+    will-change: rotate;
+
+    &>.side {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      overflow: hidden;
+      backface-visibility: hidden;
+      box-shadow: 0 2.5px 5px rgba(#000, 0.2), 0 10px 35px rgba(#000, 0.3);
+      background: url("Images/background-small.webp") no-repeat center;
+      background-size: cover;
+
+      @media #{Variables.$mq-670} {
+        background: url("Images/background-large.webp") no-repeat center;
+        background-size: cover;
+      }
+
+      &.back {
+        z-index: 2;
+        pointer-events: none;
+        @include Variables.center;
+        scale: -1 1;
+
+        rotate: y 180deg;
+
+        @media #{Variables.$mq-670} {
+          rotate: x 180deg;
+        }
+      }
+
+      &.front {
+        &>.content {
+          height: 100%;
+          width: 100%;
+          @include Variables.center;
+
+          text-align: center;
+          user-select: none;
+          transition: scale 0.5s 1.5s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.5s 1.5s cubic-bezier(0.65, 0, 0.35, 1), visibility 0s 0s;
+        }
+
+        &.hide>.content {
+          opacity: 0;
+          visibility: hidden;
+          scale: 0.5;
+          pointer-events: none;
+          transition: scale 0.5s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.5s 0s, visibility 0s 0.75s;
+        }
+      }
+    }
+  }
+
+  &.shrink {
+    scale: 0.7;
+
+    @media #{Variables.$mq-957} {
+      scale: 0.6;
+    }
+
+    &.flip>.inner {
+      rotate: y 180deg;
+
+      @media #{Variables.$mq-957} {
+        rotate: x 180deg;
+      }
+    }
+  }
+
+  &.hidden {
+    opacity: 0;
+  }
+}
