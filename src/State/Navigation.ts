@@ -20,7 +20,6 @@ export class NavigationState {
   static largeScreenScale = NavigationState.sliceUnits(Variables.largeScreenScale);
 
   public show() {
-    console.log(this.router);
     this.removeClass('hidden');
   }
 

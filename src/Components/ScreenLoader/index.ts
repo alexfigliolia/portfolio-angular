@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { Loader } from 'Components/Loader';
 import { ScreenReaderText } from 'Components/ScreenReaderText';
+import { NavigationState } from 'State/Navigation';
 
 @Component({
   selector: 'screen-loader',
@@ -8,6 +9,6 @@ import { ScreenReaderText } from 'Components/ScreenReaderText';
   imports: [ScreenReaderText, Loader],
 })
 export class ScreenLoader {
-  // TODO - sr text
-  protected readonly text = 'Loading A Page';
+  readonly navigation = inject(NavigationState);
+  readonly text = computed(() => (this.navigation.loading() ? 'Loading' : ''));
 }

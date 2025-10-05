@@ -11,9 +11,9 @@ import { RouterOutlet } from '@angular/router';
 import { Ripples } from '@figliolia/ripples';
 import { NavigationButton } from 'Components/NavigationButton';
 import { ScreenLoader } from 'Components/ScreenLoader';
+import { PreloadPromise } from 'Config/app.config';
 import { NavigationState } from 'State/Navigation';
 import { TaskQueue } from 'Tools/TaskQueue';
-import { PreloadPromise } from './app.config';
 
 @Component({
   selector: 'app-root',
@@ -28,8 +28,8 @@ import { PreloadPromise } from './app.config';
 })
 export class App implements OnDestroy {
   private rips?: Ripples;
-  protected navigation = inject(NavigationState);
-  protected readonly title = signal('portfolio-angular');
+  readonly navigation = inject(NavigationState);
+  readonly title = signal('portfolio-angular');
   readonly back = viewChild.required<ElementRef<HTMLDivElement>>('back');
   readonly front = viewChild.required<ElementRef<HTMLDivElement>>('front');
   constructor() {
