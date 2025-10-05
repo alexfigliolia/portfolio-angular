@@ -23,24 +23,32 @@ export class Router {
 
   public hashChange = () => {
     const nextRoute = this.getConfiguredRoute(this.currentRoute);
+    if (!nextRoute) {
+      window.location.hash = `#${Router.fallback}`;
+      return;
+    }
+    const redirectToSelf = nextRoute === this.activeRoute();
     this.activeRoute.set(nextRoute);
     void Promise.all([nextRoute.preload(), this.navigation.flipScreen()]).then(
       ([[Component, timeout]]) => {
         this.route.set(Component);
         this.renderTimeout.set(timeout);
+        if (redirectToSelf) {
+          this.navigation.initialize();
+        }
       },
     );
   };
 
   private getConfiguredRoute(hash: string) {
-    return Router.routes.get(hash) ?? Router.defaultRegisteredRoute;
+    return Router.routes.get(hash);
   }
 
   private get currentRoute() {
-    return window.location.hash.slice(1).toLowerCase() || Router.defaultRoute;
+    return window.location.hash.slice(1).toLowerCase();
   }
 
-  private static get defaultRoute() {
+  private static get fallback() {
     for (const [hash] of this.routes) {
       return hash;
     }

@@ -95,6 +95,10 @@
         rotate: x 180deg;
       }
     }
+
+    &>.inner>.side.front>.content {
+      transition: scale 0s, opacity 0s, visibility 0s;
+    }
   }
 
   &.hidden {
