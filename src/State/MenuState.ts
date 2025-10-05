@@ -11,9 +11,9 @@ export class MenuState {
     this.menuOpen.set(false);
   }
 
-  public toggle() {
+  public toggle = () => {
     this.menuOpen.update((s) => !s);
-  }
+  };
 
   public setButtonDelay(delay: number) {
     this.buttonDelay.set(delay);

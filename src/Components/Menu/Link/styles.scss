@@ -1,0 +1,52 @@
+@use "Styles/Variables";
+
+[role='link'] {
+  outline: none;
+  border: none;
+  margin: 5px 0;
+  @include Variables.center;
+  position: relative;
+  font-size: min(19vw, 120px);
+  transition: letter-spacing 0.2s;
+  background-color: transparent;
+  @include Variables.textRotation;
+
+
+  @media #{Variables.$mq-800} {
+    margin: 0;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    width: 100%;
+    background-color: #fff;
+    transform-origin: 50% 50%;
+    transform: scaleX(0);
+    transition-duration: 0.5s;
+    box-shadow: 0 2.5px 5px rgba(#000, 0.25), 0 0 10px rgba(#000, 0.2);
+
+    @media #{Variables.$mq-800} {
+      height: 6px;
+    }
+  }
+
+  &>span {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0) rotateX(180deg) translateY(-150%);
+  }
+
+  &#linkHome>span,
+  &#linkWork>span,
+  &#linkLabs>span {
+    @include Variables.splitTextStaggerReversal(4);
+  }
+
+  &#linkContact>span {
+    @include Variables.splitTextStaggerReversal(7, 1100ms, 300ms);
+  }
+}

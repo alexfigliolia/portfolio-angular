@@ -1,0 +1,67 @@
+@use "Styles/Variables";
+
+.menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  @include Variables.center;
+
+  z-index: 2;
+  flex-direction: column;
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+
+  &.open {
+    pointer-events: all;
+
+    &::ng-deep {
+
+      & [role='link']#linkHome>span,
+      & [role='link']#linkWork>span,
+      & [role='link']#linkLabs>span {
+        @include Variables.splitTextStagger(4, 700ms, 600ms);
+      }
+
+      & [role='link']#linkContact>span {
+        @include Variables.splitTextStagger(7, 850ms, 750ms);
+      }
+
+      & [role='link']>span {
+        opacity: 1;
+        pointer-events: none;
+        transform: scale(1) rotateX(0deg) translateY(0%);
+      }
+
+      & [role='link'].active#linkHome,
+      & [role='link'].active#linkWork,
+      & [role='link'].active#linkLabs {
+        &::after {
+          transform: scaleX(1);
+          transition: transform 0.5s 2350ms;
+        }
+      }
+
+      & [role='link'].active#linkContact {
+        &::after {
+          transform: scaleX(1);
+          transition: transform 0.5s 2500ms;
+        }
+      }
+
+      & [role='link'].hoverable {
+        &:hover {
+          letter-spacing: 0;
+
+          &::after {
+            transform: scaleX(1);
+            transition: transform 0.5s 0ms;
+          }
+        }
+      }
+    }
+  }
+}
