@@ -10,6 +10,9 @@ import { TaskQueue } from 'Tools/TaskQueue';
   templateUrl: './index.html',
   styleUrl: './styles.scss',
   imports: [Burger],
+  host: {
+    '[class.active]': 'active()',
+  },
 })
 export class NavigationButton {
   readonly active = signal(false);

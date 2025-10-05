@@ -1,38 +1,32 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { Variables } from 'Styles/Variables';
 import { TaskQueue } from 'Tools/TaskQueue';
+import { MenuState } from './MenuState';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NavigationState {
+  readonly router = inject(Router);
   readonly loading = signal(true);
-  readonly routeName = signal('home');
+  readonly menu = inject(MenuState);
+  readonly routeName = signal('Home');
   readonly screenActive = signal(false);
   readonly classes = signal(new Set<string>(['shrink', 'flip', 'hidden']));
-  readonly classList = computed(() => Array.from(this.classes().keys()).join(' '));
 
   static screenInnerTransition = NavigationState.sliceUnits(Variables.screenInnerTransition);
   static smallScreenScale = NavigationState.sliceUnits(Variables.smallScreenScale);
   static largeScreenScale = NavigationState.sliceUnits(Variables.largeScreenScale);
 
   public show() {
+    console.log(this.router);
     this.removeClass('hidden');
   }
 
-  public flipScreen() {
-    return new Promise<void>((resolve) => {
-      this.loading.set(true);
-      this.shrink();
-      TaskQueue.deferTask(() => {
-        this.flip();
-        TaskQueue.deferTask(() => {
-          // Menu.close();
-          this.activateScreen(false);
-          resolve();
-        }, NavigationState.screenInnerTransition);
-      }, NavigationState.shrinkDuration);
-    });
+  public navigateTo(path: string) {
+    // TODO - fire preloader while flipping
+    void this.flipScreen().then(() => this.router.navigate([path]));
   }
 
   public initialize(wait = 1000, cb?: () => void) {
@@ -63,6 +57,21 @@ export class NavigationState {
 
   public unFlip() {
     this.removeClass('flip');
+  }
+
+  private flipScreen() {
+    return new Promise<void>((resolve) => {
+      this.loading.set(true);
+      this.shrink();
+      TaskQueue.deferTask(() => {
+        this.flip();
+        TaskQueue.deferTask(() => {
+          this.menu.close();
+          this.activateScreen(false);
+          resolve();
+        }, NavigationState.screenInnerTransition);
+      }, NavigationState.shrinkDuration);
+    });
   }
 
   private activateScreen(active = true) {

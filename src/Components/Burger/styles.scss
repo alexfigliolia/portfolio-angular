@@ -1,6 +1,6 @@
 @use "Styles/Variables";
 
-.burger {
+button {
   height: 60px;
   width: 60px;
 
@@ -48,7 +48,7 @@
   }
 }
 
-.burger.open>div {
+button.open>div {
   transform: scale(0.95);
   transition: transform 0.3s 0.3s;
 

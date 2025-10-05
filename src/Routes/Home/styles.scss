@@ -4,4 +4,18 @@
   gap: 40px;
   @include Variables.center;
   flex-direction: column;
+
+  &.active ::ng-deep>alex-text>h1 {
+    &.alex-text .letter {
+      @include Variables.splitTextStagger(4, 550ms);
+    }
+
+    &.figliolia-text .letter {
+      @include Variables.splitTextStagger(9, 550ms);
+    }
+
+    & .letter {
+      @include Variables.splitLetterVisibleState;
+    }
+  }
 }

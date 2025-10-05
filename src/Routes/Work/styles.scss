@@ -1,0 +1,77 @@
+@use "Styles/Variables";
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  position: relative;
+  overflow: hidden;
+  touch-action: none;
+
+  & #workSlider {
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
+
+    @media #{Variables.$mq-670} {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-around;
+    }
+  }
+
+  &.active ::ng-deep work-poster.active {
+    & h2>div {
+      @include Variables.splitLetterVisibleState;
+    }
+
+    & article {
+      & .description {
+        opacity: 1;
+        transform: translateY(0%);
+        transition: all 1s cubic-bezier(0.65, 0, 0.35, 1);
+      }
+
+      & .links three-d-button>button {
+        color: #fff;
+        pointer-events: none;
+        text-shadow: 0 0.1em 0.2em rgba(#000, 0.8), 0 0 0.2em rgba(#000, 0.5);
+        transition: transform 0.5s 0s, box-shadow 0.5s 0s, color 0.3s 0.1s, text-shadow 0.7s 2.7s, color 0.7s 2.7s;
+
+        &::after,
+        &::before {
+          transform: scaleX(1);
+          transition: height 0.4s, transform 0.4s 2s;
+        }
+
+        &>div {
+
+          &::after,
+          &::before {
+            transform: scaleY(1);
+            transition: transform 0.4s 2.4s;
+          }
+        }
+
+        &:hover {
+          color: #000;
+          text-shadow: none;
+          transition: transform 0.5s 0s, box-shadow 0.5s 0s, color 0.3s 0s, text-shadow 0.3s 0s;
+        }
+      }
+
+      & .links.reset three-d-button>button {
+        color: #fff;
+        pointer-events: auto;
+        transition: transform 0.5s 0s, box-shadow 0.5s 0s, color 0.3s 0.1s, text-shadow 0.3s 0.1s;
+
+        &:hover {
+          color: #000;
+          text-shadow: none;
+          transition: transform 0.5s 0s, box-shadow 0.5s 0s, color 0.3s 0s, text-shadow 0.3s 0s;
+        }
+      }
+    }
+  }
+}

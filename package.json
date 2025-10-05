@@ -35,6 +35,8 @@
     "@angular/platform-server": "^20.3.0",
     "@angular/router": "^20.3.0",
     "@angular/ssr": "^20.3.4",
+    "@figliolia/page-switch": "^1.0.8",
+    "@figliolia/promises": "^1.0.1",
     "@figliolia/ripples": "^1.0.8",
     "@figliolia/task-queue": "^1.0.8",
     "express": "^5.1.0",

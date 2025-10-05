@@ -1,0 +1,5 @@
+<div id="workSlider">
+  @for(item of API; track $index) {
+  <work-poster [data]="item" [index]="$index" />
+  }
+</div>

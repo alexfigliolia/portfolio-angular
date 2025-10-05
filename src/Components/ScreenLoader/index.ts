@@ -8,5 +8,6 @@ import { ScreenReaderText } from 'Components/ScreenReaderText';
   imports: [ScreenReaderText, Loader],
 })
 export class ScreenLoader {
+  // TODO - sr text
   protected readonly text = 'Loading A Page';
 }

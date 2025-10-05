@@ -1,24 +1,35 @@
-import { afterNextRender, Component } from '@angular/core';
+import { Component, effect, input } from '@angular/core';
 import { ResetController, ThreeDButtonWithEntrance } from 'Components/3DButtonWithEntrance';
 import { AlexText } from 'Components/AlexText';
-import { TaskQueue } from 'Tools/TaskQueue';
+import { BaseRoute } from 'Tools/BaseRoute';
 
 @Component({
   selector: 'home-page',
   templateUrl: './index.html',
   styleUrl: './styles.scss',
   imports: [AlexText, ThreeDButtonWithEntrance],
+  host: {
+    '[class.active]': 'navigation.screenActive()',
+  },
 })
-export class Home {
+export class Home extends BaseRoute {
   readonly reset = new ResetController();
+  readonly title = input.required<string>();
+  readonly timeout = input.required<number>();
   constructor() {
-    afterNextRender({
-      write: () => {
-        TaskQueue.deferTask(() => {
-          this.reset.activate();
-        }, 100);
-      },
+    super();
+    this.activateButton();
+  }
+
+  protected onClickWork = () => {
+    this.navigation.navigateTo('work');
+  };
+
+  private activateButton() {
+    effect(() => {
+      if (this.navigation.screenActive()) {
+        this.reset.activate();
+      }
     });
   }
-  protected onClickWork() {}
 }

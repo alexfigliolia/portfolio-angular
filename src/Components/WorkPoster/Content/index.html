@@ -1,0 +1,11 @@
+<div class="description" [class.expanded]="expanded()" [style.transition-delay]="transitionDelay()">
+  <p>{{data().p1}}</p>
+  <p>{{data().p2}}</p>
+</div>
+<div class='links' [class.reset]="reset()">
+  <three-d-button text="More" [onClick]="toggle" />
+
+  @if(data().url) {
+  <three-d-button text="Visit" [onClick]="visit" />
+  }
+</div>

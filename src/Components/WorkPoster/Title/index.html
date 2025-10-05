@@ -1,0 +1,14 @@
+<h2>
+  @for(letter of letters(); track $index) {
+  @if(letter === ' ') {
+  <div>
+    &nbsp;&nbsp;&nbsp;
+  </div>
+  } @else {
+  @let delay = (length() - $index) * 50;
+  <div [style.transition]="transition(delay)">
+    {{letter}}
+  </div>
+  }
+  }
+</h2>

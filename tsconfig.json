@@ -16,6 +16,9 @@
       "Components/*": [
         "./src/Components/*"
       ],
+      "Declarations/*": [
+        "./src/Declarations/*"
+      ],
       "Images/*": [
         "./src/Images/*"
       ],

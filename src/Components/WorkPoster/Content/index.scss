@@ -1,0 +1,141 @@
+@use "Styles/Variables";
+
+:host {
+  @include Variables.center;
+  flex-direction: column;
+
+  &>.description,
+  &>.links {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+  }
+
+  &>.description {
+    opacity: 0;
+    flex-flow: row wrap;
+    position: relative;
+    align-items: flex-start;
+    margin: 20px 0 30px;
+    text-align: left;
+    transform: translateY(100%);
+    transition: all 0.5s 0s cubic-bezier(0.65, 0, 0.35, 1);
+
+    &>p {
+      margin: 0;
+      color: #fff;
+      width: 100%;
+      font-weight: 200;
+      pointer-events: none;
+      transition: transform 0.5s 0s, opacity 0.5s 0s, visibility 0s 0s;
+      font-size: min(5.5vw, 30px);
+      text-shadow: 0 0.025em 0.05em rgba(#000, 0.75), 0 0.05em 0.075em rgba(#000, 0.75), 0 0.01em 0.025em rgba(#000, 0.75);
+
+      @media #{Variables.$mq-800} {
+        width: 46%;
+        font-size: min(3vw, 22.5px);
+      }
+
+      @media #{Variables.$mq-1150} {
+        font-size: min(2.5vw, 25px);
+      }
+
+      &:last-of-type {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transform: translateY(100%);
+        transition: opacity 0.5s 0s, transform 0.5s 0s, visibility 0s 0.5s;
+
+        @media #{Variables.$mq-800} {
+          margin-left: 2%;
+          display: initial;
+          position: static;
+          opacity: 1;
+          transform: translateY(0%);
+          transition: opacity 0.5s 0s, transform 0.5s 0s, visibility 0s 0s;
+        }
+      }
+
+      &:first-of-type {
+        @media #{Variables.$mq-800} {
+          margin-right: 2%;
+        }
+      }
+    }
+
+    &.expanded {
+      &>p:first-of-type {
+        opacity: 0;
+        transform: translateY(100%);
+        transition: opacity 0.5s 0s, transform 0.5s 0s, visibility 0s 0.5s;
+
+        @media #{Variables.$mq-800} {
+          opacity: 1;
+          transform: translateY(0%);
+        }
+      }
+
+      &>p:last-of-type {
+        opacity: 1;
+        transform: translateY(0%);
+        transition: opacity 0.5s 0s, transform 0.5s 0s, visibility 0s 0s;
+
+        @media #{Variables.$mq-800} {
+          opacity: 1;
+          transform: translateY(0%);
+        }
+      }
+    }
+  }
+
+  &>.links {
+
+    align-items: center;
+    gap: 1.5em;
+
+    margin-bottom: 40px;
+    z-index: 2;
+
+    @media #{Variables.$mq-800} {
+      gap: 2em;
+    }
+
+    & ::ng-deep three-d-button>button {
+      font-size: 0.9em;
+      color: transparent;
+      text-shadow: none;
+
+      @media #{Variables.$mq-1150} {
+        font-size: 1em;
+      }
+
+      &::after,
+      &::before {
+        transform: scaleX(0);
+        transform-origin: 0% 50%;
+        transition: height 0.4s, transform 0.4s;
+      }
+
+      &::after {
+        transform-origin: 100% 50%;
+      }
+
+      &>div {
+        padding: 0.85em 2.75em;
+
+        &::after,
+        &::before {
+          transform: scaleY(0);
+          transform-origin: 50% 0%;
+          transition: height 0.4s, transform 0.4s;
+        }
+
+        &::after {
+          transform-origin: 50% 100%;
+        }
+      }
+    }
+  }
+}
