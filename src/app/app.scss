@@ -96,8 +96,23 @@
       }
     }
 
-    &>.inner>.side.front>.content {
-      transition: scale 0s, opacity 0s, visibility 0s;
+    &>.inner>.side.front {
+      &>.content {
+        transition: scale 0s, opacity 0s, visibility 0s;
+      }
+
+      &::ng-deep .menu {
+
+        & [role='link']#linkHome>span,
+        & [role='link']#linkWork>span,
+        & [role='link']#linkLabs>span {
+          @include Variables.splitTextStagger(4, 0ms, 0ms);
+        }
+
+        & [role='link']#linkContact>span {
+          @include Variables.splitTextStagger(7, 0ms, 0ms);
+        }
+      }
     }
   }
 
