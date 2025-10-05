@@ -4,17 +4,27 @@ import {
   provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { ContentPreloader } from 'Tools/ContentPreloader';
-import { routes } from './app.routes';
+import { LazyRoute } from 'Tools/LazyRoute';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes, withComponentInputBinding()),
     provideClientHydration(withEventReplay()),
   ],
 };
 
 export const PreloadPromise = ContentPreloader.initialize();
+
+export const HomeRoute = new LazyRoute({
+  hash: '',
+  title: 'Home',
+  loaderFN: () => import('Routes/Home').then((v) => v.Home),
+});
+
+export const WorkRoute = new LazyRoute({
+  hash: 'work',
+  title: 'Work',
+  loaderFN: () => import('Routes/Work').then((v) => v.Work),
+});

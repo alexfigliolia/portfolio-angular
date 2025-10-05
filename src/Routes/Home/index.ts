@@ -22,7 +22,7 @@ export class Home extends BaseRoute {
   }
 
   protected onClickWork = () => {
-    this.navigation.navigateTo('work');
+    window.location.hash = '#work';
   };
 
   private activateButton() {

@@ -1,44 +1,36 @@
 import { Type } from '@angular/core';
-import { Route } from '@angular/router';
 import { TimedPromise } from '@figliolia/promises';
+import { Router } from './Router';
 
-export class LazyRoute implements Route {
-  public path: string;
+export class LazyRoute {
+  public hash: string;
   public title: string;
   public static isInitialLoad = true;
-  public resolve = {
-    title: this.resolveTitle(),
-    timeout: this.resolveTransitionTimeout(),
-  };
-  public loadComponent: () => Promise<Type<unknown>>;
+  private loader: () => Promise<[Type<unknown>, number]>;
   private loaderResult: Type<unknown> | undefined = undefined;
-  constructor({ path, title, loaderFN }: ILazyRoute) {
-    this.path = path;
+  constructor({ hash, title, loaderFN }: ILazyRoute) {
+    this.hash = hash;
     this.title = title;
-    this.loadComponent = this.createComponentLoader(loaderFN);
+    this.loader = this.createComponentLoader(loaderFN);
+    Router.register(this);
   }
 
   public preload() {
-    return this.loadComponent();
+    return this.loader();
   }
 
-  private createComponentLoader(loader: () => Promise<Type<unknown>>) {
+  private createComponentLoader(
+    loader: () => Promise<Type<unknown>>,
+  ): () => Promise<[Type<unknown>, number]> {
     return async () => {
-      this.loaderResult ??= await loader();
-      return this.loaderResult;
+      if (this.loaderResult) {
+        return [this.loaderResult, this.threshold()];
+      }
+      const TP = new TimedPromise(loader, this.threshold());
+      const { remainingMS, result } = await TP.run();
+      this.loaderResult = result;
+      return [this.loaderResult, remainingMS];
     };
-  }
-
-  private resolveTransitionTimeout() {
-    return async () => {
-      const TP = new TimedPromise(this.loadComponent, this.threshold());
-      const { remainingMS } = await TP.run();
-      return remainingMS;
-    };
-  }
-
-  private resolveTitle() {
-    return () => Promise.resolve(this.title);
   }
 
   private threshold() {
@@ -51,7 +43,7 @@ export class LazyRoute implements Route {
 }
 
 export interface ILazyRoute {
-  path: string;
+  hash: string;
   title: string;
   loaderFN: () => Promise<Type<unknown>>;
 }

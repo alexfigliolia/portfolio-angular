@@ -1,7 +1,7 @@
 <button [id]="id()" role="link" (click)="navigate()" [class.active]="active()" [class.hoverable]="hoverable()"
   [aria-label]="to()">
   @for(letter of letters(); track $index) {
-  <span aria-hidden>
+  <span aria-hidden="true">
     {{letter}}
   </span>
   }

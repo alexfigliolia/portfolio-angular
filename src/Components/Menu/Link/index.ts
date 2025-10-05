@@ -31,7 +31,8 @@ export class Link {
   }
 
   public navigate() {
-    this.navigation.navigateTo(this.to());
+    const hash = this.to();
+    window.location.hash = hash ? `#${hash}` : hash;
     TaskQueue.deferTask(() => {
       this.menu.toggle();
     }, NavigationState.shrinkAndFlipDuration);

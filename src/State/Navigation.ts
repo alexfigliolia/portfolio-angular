@@ -23,11 +23,6 @@ export class NavigationState {
     this.removeClass('hidden');
   }
 
-  public navigateTo(path: string) {
-    // TODO - fire preloader while flipping
-    void this.flipScreen().then(() => this.router.navigate([path]));
-  }
-
   public initialize(wait = 1000, cb?: () => void) {
     TaskQueue.deferTask(() => {
       this.unFlip();
@@ -42,23 +37,7 @@ export class NavigationState {
     }, wait);
   }
 
-  public shrink() {
-    this.addClass('shrink');
-  }
-
-  public unShrink() {
-    this.removeClass('shrink');
-  }
-
-  public flip() {
-    this.addClass('flip');
-  }
-
-  public unFlip() {
-    this.removeClass('flip');
-  }
-
-  private flipScreen() {
+  public flipScreen() {
     return new Promise<void>((resolve) => {
       this.loading.set(true);
       this.shrink();
@@ -71,6 +50,22 @@ export class NavigationState {
         }, NavigationState.screenInnerTransition);
       }, NavigationState.shrinkDuration);
     });
+  }
+
+  private shrink() {
+    this.addClass('shrink');
+  }
+
+  private unShrink() {
+    this.removeClass('shrink');
+  }
+
+  private flip() {
+    this.addClass('flip');
+  }
+
+  private unFlip() {
+    this.removeClass('flip');
   }
 
   private activateScreen(active = true) {

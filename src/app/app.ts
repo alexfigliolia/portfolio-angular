@@ -7,10 +7,10 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { Ripples } from '@figliolia/ripples';
 import { Menu } from 'Components/Menu';
 import { NavigationButton } from 'Components/NavigationButton';
+import { RouteRenderer } from 'Components/RouteRenderer';
 import { ScreenLoader } from 'Components/ScreenLoader';
 import { PreloadPromise } from 'Config/app.config';
 import { MenuState } from 'State/MenuState';
@@ -21,7 +21,7 @@ import { TaskQueue } from 'Tools/TaskQueue';
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',
-  imports: [RouterOutlet, ScreenLoader, NavigationButton, Menu],
+  imports: [RouteRenderer, ScreenLoader, NavigationButton, Menu],
   host: {
     '[class.flip]': "navigation.classes().has('flip')",
     '[class.shrink]': "navigation.classes().has('shrink')",
@@ -41,7 +41,9 @@ export class App implements OnDestroy {
         void import('@figliolia/ripples').then(({ Ripples }) => {
           this.rips = new Ripples(this.front().nativeElement, {});
         });
-        void PreloadPromise.catch(console.log).finally(() => this.navigation.show());
+        void PreloadPromise.catch(console.log).finally(() => {
+          this.navigation.show();
+        });
       },
     });
   }
