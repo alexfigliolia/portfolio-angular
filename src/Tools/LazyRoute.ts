@@ -24,21 +24,21 @@ export class LazyRoute {
   ): () => Promise<[Type<unknown>, number]> {
     return async () => {
       if (this.loaderResult) {
-        return [this.loaderResult, this.threshold()];
+        return [this.loaderResult, LazyRoute.threshold];
       }
-      const TP = new TimedPromise(loader, this.threshold());
+      const TP = new TimedPromise(loader, LazyRoute.threshold);
       const { remainingMS, result } = await TP.run();
       this.loaderResult = result;
       return [this.loaderResult, remainingMS];
     };
   }
 
-  private threshold() {
-    if (LazyRoute.isInitialLoad) {
-      LazyRoute.isInitialLoad = false;
-      return 1750;
+  private static get threshold() {
+    if (this.isInitialLoad) {
+      this.isInitialLoad = false;
+      return 0;
     }
-    return 1000;
+    return 500;
   }
 }
 

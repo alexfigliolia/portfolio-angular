@@ -12,9 +12,9 @@ import { Menu } from 'Components/Menu';
 import { NavigationButton } from 'Components/NavigationButton';
 import { RouteRenderer } from 'Components/RouteRenderer';
 import { ScreenLoader } from 'Components/ScreenLoader';
-import { PreloadPromise } from 'Config/app.config';
 import { MenuState } from 'State/MenuState';
 import { NavigationState } from 'State/Navigation';
+import { Router } from 'Tools/Router';
 import { TaskQueue } from 'Tools/TaskQueue';
 
 @Component({
@@ -30,6 +30,7 @@ import { TaskQueue } from 'Tools/TaskQueue';
 })
 export class App implements OnDestroy {
   private rips?: Ripples;
+  readonly router = inject(Router);
   readonly menu = inject(MenuState);
   readonly navigation = inject(NavigationState);
   readonly title = signal('portfolio-angular');
@@ -41,7 +42,7 @@ export class App implements OnDestroy {
         void import('@figliolia/ripples').then(({ Ripples }) => {
           this.rips = new Ripples(this.front().nativeElement, {});
         });
-        void PreloadPromise.catch(console.log).finally(() => {
+        void this.router.preloadingPromise.catch(console.log).finally(() => {
           this.navigation.show();
         });
       },

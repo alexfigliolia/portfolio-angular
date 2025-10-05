@@ -1,5 +1,6 @@
 import { inject, Injectable, signal, Type } from '@angular/core';
 import { NavigationState } from 'State/Navigation';
+import { ContentPreloader } from './ContentPreloader';
 import { LazyRoute } from './LazyRoute';
 
 @Injectable({
@@ -8,12 +9,14 @@ import { LazyRoute } from './LazyRoute';
 export class Router {
   readonly navigation = inject(NavigationState);
   readonly renderTimeout = signal<number>(1000);
+  private readonly preloadPromise?: Promise<void>;
   static readonly routes = new Map<string, LazyRoute>();
   readonly route = signal<Type<unknown> | undefined>(undefined);
   readonly activeRoute = signal<LazyRoute | undefined>(Router.defaultRegisteredRoute);
   constructor() {
     if (typeof window !== 'undefined') {
       addEventListener('hashchange', this.hashChange);
+      this.preloadPromise = ContentPreloader.initialize();
     }
   }
 
@@ -29,15 +32,17 @@ export class Router {
     }
     const redirectToSelf = nextRoute === this.activeRoute();
     this.activeRoute.set(nextRoute);
-    void Promise.all([nextRoute.preload(), this.navigation.flipScreen()]).then(
-      ([[Component, timeout]]) => {
-        this.route.set(Component);
-        this.renderTimeout.set(timeout);
-        if (redirectToSelf) {
-          this.navigation.initialize();
-        }
-      },
-    );
+    void Promise.all([
+      nextRoute.preload(),
+      this.navigation.flipScreen(),
+      this.preloadingPromise,
+    ]).then(([[Component, timeout]]) => {
+      this.route.set(Component);
+      this.renderTimeout.set(timeout);
+      if (redirectToSelf) {
+        this.navigation.initialize();
+      }
+    });
   };
 
   private getConfiguredRoute(hash: string) {
@@ -60,5 +65,9 @@ export class Router {
       return route;
     }
     throw new Error('No routes registered');
+  }
+
+  public get preloadingPromise() {
+    return this.preloadPromise ?? ContentPreloader.initialize();
   }
 }
