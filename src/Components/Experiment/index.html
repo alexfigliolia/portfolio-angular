@@ -1,0 +1,14 @@
+<div class="e-loader" aria-hidden="notLoading()">
+  <circle-loader />
+  <split-text text="loading" />
+</div>
+<div class="media">
+  <video #video loop playsInline autoPlay muted [src]="data().video"></video>
+  <img [src]="data().image" />
+</div>
+<div class="meta">
+  <h2>
+    <split-text [text]="data().title" />
+  </h2>
+  <p>{{data().description}}</p>
+</div>

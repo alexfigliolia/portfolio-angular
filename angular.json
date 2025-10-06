@@ -19,7 +19,8 @@
           "options": {
             "loader": {
               ".webp": "file",
-              ".jpg": "file"
+              ".jpg": "file",
+              ".mp4": "file"
             },
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",

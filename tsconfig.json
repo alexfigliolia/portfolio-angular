@@ -36,6 +36,9 @@
       ],
       "Tools/*": [
         "./src/Tools/*"
+      ],
+      "Videos/*": [
+        "./src/Videos/*"
       ]
     }
   },
