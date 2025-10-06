@@ -106,11 +106,11 @@
         & [role='link']#linkHome>span,
         & [role='link']#linkWork>span,
         & [role='link']#linkLabs>span {
-          @include Variables.splitTextStagger(4, 0ms, 0ms);
+          @include Variables.splitTextStagger(4, 0ms, 0ms, 0ms);
         }
 
         & [role='link']#linkContact>span {
-          @include Variables.splitTextStagger(7, 0ms, 0ms);
+          @include Variables.splitTextStagger(7, 0ms, 0ms, 0ms);
         }
       }
     }

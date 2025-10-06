@@ -1,0 +1,13 @@
+@use "Styles/Variables";
+
+:host {
+  @include Variables.center;
+
+  &>h1 {
+    @include Variables.splitTextStyles;
+
+    & ::ng-deep .letter {
+      @include Variables.splitTextStagger(7);
+    }
+  }
+}

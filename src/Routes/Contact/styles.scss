@@ -1,0 +1,29 @@
+@use "Styles/Variables";
+
+:host {
+  width: 100%;
+  gap: 40px;
+  @include Variables.center;
+
+  flex-direction: column;
+
+  @media #{Variables.$mq-957} {
+    gap: 55px;
+  }
+
+  & .buttons {
+    width: 90%;
+    margin-top: 10px;
+
+    @include Variables.center;
+    gap: 2.5em;
+
+    flex-flow: row wrap;
+  }
+
+  &.active ::ng-deep {
+    &>contact-text>h1 .letter {
+      @include Variables.splitLetterVisibleState;
+    }
+  }
+}

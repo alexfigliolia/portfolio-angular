@@ -111,6 +111,10 @@
         font-size: 1em;
       }
 
+      @media #{Variables.$mq-1500} {
+        font-size: 1.05em;
+      }
+
       &::after,
       &::before {
         transform: scaleX(0);

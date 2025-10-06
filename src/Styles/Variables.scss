@@ -1,4 +1,4 @@
-/* ======================= VARIABLES ==================== */
+/* ======================= Variables ==================== */
 $smallScreenFlip: 1000ms;
 $smallScreenScale: 1000ms;
 $largeScreenFlip: 750ms;
@@ -17,6 +17,7 @@ $mq-1000: "(min-width: 1000px)";
 $mq-1070: "(min-width: 1070px)";
 $mq-1150: "(min-width: 1150px)";
 $mq-1350: "(min-width: 1350px)";
+$mq-1500: "(min-width: 1500px)";
 $mq-1700: "(min-width: 1700px)";
 $mq-h-635: "(min-height: 635px)";
 $mq-h-1024: "(min-height: 1024px)";
@@ -119,7 +120,7 @@ $mq-h-1400: "(min-height: 1400px)";
   @include headingFontSizes;
   @include textRotation;
 
-  &>.letter {
+  &::ng-deep .letter {
     @include splitLetterHiddenState;
   }
 }

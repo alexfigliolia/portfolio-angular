@@ -25,3 +25,9 @@ export const WorkRoute = new LazyRoute({
   title: 'Work',
   loaderFN: () => import('Routes/Work').then((v) => v.Work),
 });
+
+export const ContactRoute = new LazyRoute({
+  hash: 'contact',
+  title: 'Contact',
+  loaderFN: () => import('Routes/Contact').then((v) => v.Contact),
+});

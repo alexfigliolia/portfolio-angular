@@ -1,4 +1,4 @@
-import { afterNextRender, Component, inject, input, OnDestroy } from '@angular/core';
+import { afterNextRender, Component, inject, OnDestroy } from '@angular/core';
 import { PageSwitch } from '@figliolia/page-switch';
 import { ResetController } from 'Components/3DButtonWithEntrance';
 import { WorkPoster } from 'Components/WorkPoster';
@@ -21,8 +21,6 @@ export class Work extends BaseRoute implements OnDestroy {
   private PW?: PageSwitch;
   readonly state = inject(WorkState);
   readonly reset = new ResetController();
-  readonly title = input.required<string>();
-  readonly timeout = input.required<number>();
   constructor() {
     super();
     this.createSlider();
