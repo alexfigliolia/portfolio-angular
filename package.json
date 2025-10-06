@@ -5,10 +5,10 @@
     "ng": "ng",
     "start": "concurrently --kill-others 'npm run serve' 'npm run watch-scss-variables'",
     "serve": "ng serve",
-    "build": "ng build",
+    "build": "ng build --optimization",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:portfolio-angular": "node dist/portfolio-angular/server/server.mjs",
+    "serve:ssr": "node dist/portfolio-angular/server/server.mjs",
     "create-package": "tsx devtools/create-package/CLI.ts",
     "watch-scss-variables": "tsx devtools/scss-variables/CLI.ts",
     "lint": "ng lint"

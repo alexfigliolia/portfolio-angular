@@ -1,7 +1,9 @@
 <div class="inner">
   <div class="side front" [class.hide]="menu.menuOpen()" #front>
+    @defer {
     <navigation-button />
     <nav-menu />
+    }
     <div class="content">
       <route-renderer />
     </div>
