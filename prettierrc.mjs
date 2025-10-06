@@ -6,4 +6,12 @@ export default {
   bracketSpacing: true,
   singleQuote: false,
   trailingComma: "all",
+  overrides: [
+    {
+      files: "*.html",
+      options: {
+        parser: "angular"
+      }
+    }
+  ]
 };
